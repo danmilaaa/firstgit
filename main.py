@@ -1,16 +1,30 @@
-# This is a sample Python script.
-
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+import psycopg2
+from config import host, user, password, db_name
 
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
+try:
+    # connect to exist database
+    connection = psycopg2.connect(
+        host=host,
+        user=user,
+        password=password,
+        database=db_name
+    )
 
+    # the cursor for performing database operations
+    #cursor = connection.cursor()
 
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
+    with connection.cursor() as cursor:
+        cursor.execute(
+            "SELECT version();"
+        )
 
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+        print(f"Server version: {cursor.fetchone()}")
+
+except Exception as _ex:
+    print("[INFO] Error while working with PostgreSQL", _ex)
+finally:
+    if connection:
+        #cursor.close()
+        connection.close()
+        print("[INFO] PostgreSQL connection closed")
