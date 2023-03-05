@@ -1,15 +1,18 @@
 import psycopg2
-from config import host, user, password, db_name
+from config import host, user, password, db_name, port
 
 
-try:
-    # connect to exist database
-    connection = psycopg2.connect(
+connection =psycopg2.connect(
         host=host,
         user=user,
         password=password,
-        database=db_name
+        database=db_name,
+        port=port
     )
+
+try:
+    # connect to exist database
+
 
     # the cursor for performing database operations
     #cursor = connection.cursor()

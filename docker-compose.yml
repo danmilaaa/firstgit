@@ -7,7 +7,7 @@ services:
     ports:
       - 8000:5432
     environment:
-      POSTGRES_DB: DB_DATABASE
+      POSTGRES_DB: database
       POSTGRES_USER: danmila
-      POSTGRES_PASSWORD: idn
+      POSTGRES_PASSWORD: Luda0202_
       
